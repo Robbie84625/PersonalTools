@@ -14,7 +14,7 @@ public class Meal {
   /** id */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   /** 作弊餐名稱 */
   private String name;
