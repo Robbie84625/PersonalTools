@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 public class GetCheatMealsPresentation {
   private final GetCheatMealsFlow getCheatMealsFlow;
 
-  public GetCheatMealsResponse execute(String keyword, String category, Integer page, Integer size) {
+  public GetCheatMealsResponse execute(
+      String keyword, String category, Integer page, Integer size) {
     Page<Result> result =
         this.getCheatMealsFlow.execute(
             Command.builder().keyword(keyword).category(category).page(page).size(size).build());

@@ -2,6 +2,8 @@ package com.robbie.personaltools.font.controller.cheatmeal;
 
 import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.CreateCheatMealItemPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.model.CreateCheatMealItemRequest;
+import com.robbie.personaltools.font.api.cheatmeal.getcheatmealitem.GetCheatMealItemPresentation;
+import com.robbie.personaltools.font.api.cheatmeal.getcheatmealitem.model.GetCheatMealItemResponse;
 import com.robbie.personaltools.font.api.cheatmeal.getcheatmeals.GetCheatMealsPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
 import com.robbie.personaltools.font.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
@@ -10,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,6 +29,7 @@ public class CheatMealController {
   private final CreateCheatMealItemPresentation createCheatMealItemPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
   private final GetCheatMealsPresentation getCheatMealsPresentation;
+  private final GetCheatMealItemPresentation getCheatMealItemPresentation;
 
   @Operation(summary = "新增作弊餐品項")
   @PostMapping("/createCheatMealItem")
@@ -34,7 +38,7 @@ public class CheatMealController {
     this.createCheatMealItemPresentation.execute(request);
   }
 
-  @Operation(summary = "更新作弊餐品項")
+  @Operation(summary = "取得作弊餐列表")
   @PutMapping("/GetCheatMeals")
   public GetCheatMealsResponse getCheatMeals(
       @RequestParam(required = false) String keyword,
@@ -42,6 +46,12 @@ public class CheatMealController {
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "20") Integer size) {
     return this.getCheatMealsPresentation.execute(keyword, category, page, size);
+  }
+
+  @Operation(summary = "取得作弊餐品項內容")
+  @GetMapping("/GetCheatMealItem/{id}")
+  public GetCheatMealItemResponse GetCheatMealItem(@PathVariable Long id) throws Exception {
+    return this.getCheatMealItemPresentation.execute(id);
   }
 
   @Operation(summary = "更新作弊餐品項")
