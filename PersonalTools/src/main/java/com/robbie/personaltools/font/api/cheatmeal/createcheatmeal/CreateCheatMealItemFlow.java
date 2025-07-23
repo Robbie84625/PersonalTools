@@ -20,7 +20,7 @@ public class CreateCheatMealItemFlow {
 
     Optional<Meal> existingMeal = this.cheatMealRepository.findCheatMealByName(command.getName());
     if (existingMeal.isPresent()) {
-      throw new ValidException(ErrorCodeEnum.DuplicateCheatMeal);
+      throw new ValidException(ErrorCodeEnum.DUPLICATE_CHEAT_MEAL);
     }
 
     this.cheatMealRepository.saveCheatMeal(this.createCheatMeal(command));
@@ -44,7 +44,7 @@ public class CreateCheatMealItemFlow {
 
   @RequiredArgsConstructor
   public enum ErrorCodeEnum implements ErrorInfo {
-    DuplicateCheatMeal("作弊餐重複新增");
+    DUPLICATE_CHEAT_MEAL("作弊餐重複新增");
 
     private final String errorMessage;
 

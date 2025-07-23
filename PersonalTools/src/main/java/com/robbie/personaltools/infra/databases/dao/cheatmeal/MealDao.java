@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MealDao extends JpaRepository<Meal, Integer> {
+public interface MealDao extends JpaRepository<Meal, Long> {
   Optional<Meal> findByName(String name);
 
   Page<Meal> findByNameContaining(String keyword, Pageable pageable);

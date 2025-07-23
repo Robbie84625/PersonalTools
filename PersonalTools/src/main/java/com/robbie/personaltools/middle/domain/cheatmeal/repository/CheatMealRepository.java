@@ -17,4 +17,6 @@ public interface CheatMealRepository {
   Page<Meal> findByCategory(String category, Pageable pageable);
 
   Page<Meal> findByCategoryAndNameContaining(String category, String keyword, Pageable pageable);
+
+  void deleteCheatMeal(Long cheatMealId);
 }

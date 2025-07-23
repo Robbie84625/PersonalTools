@@ -4,6 +4,7 @@ import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.CreateCheatMe
 import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.model.CreateCheatMealItemRequest;
 import com.robbie.personaltools.font.api.cheatmeal.createconsumption.CreateConsumptionPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.createconsumption.model.CreateConsumptionRequest;
+import com.robbie.personaltools.font.api.cheatmeal.deletecheatmealitem.DeleteCheatMealItemPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.getbudget.GetBudgetPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.getbudget.model.GetBudgetResponse;
 import com.robbie.personaltools.font.api.cheatmeal.getcheatmealitem.GetCheatMealItemPresentation;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +38,7 @@ public class CheatMealController {
   private final GetCheatMealItemPresentation getCheatMealItemPresentation;
   private final GetBudgetPresentation getBudgetPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
+  private final DeleteCheatMealItemPresentation deleteCheatMealItemPresentation;
 
   @Operation(summary = "新增作弊餐品項")
   @PostMapping("/createCheatMealItem")
@@ -83,5 +86,11 @@ public class CheatMealController {
   public void updateCheatMeal(
       @PathVariable Long id, @RequestBody UpdateCheatMealItemRequest request) throws Exception {
     this.updateCheatMealItemPresentation.execute(id, request);
+  }
+
+  @Operation(summary = "刪除作弊餐品項")
+  @DeleteMapping("/deleteCheatMealItem/{id}")
+  public void deleteCheatMeal(@PathVariable Long id) throws Exception {
+    this.deleteCheatMealItemPresentation.execute(id);
   }
 }

@@ -44,4 +44,9 @@ public class CheatMealPersistence implements CheatMealRepository {
       String category, String keyword, Pageable pageable) {
     return this.mealDao.findByCategoryAndNameContaining(category, keyword, pageable);
   }
+
+  @Override
+  public void deleteCheatMeal(Long cheatMealId) {
+    this.mealDao.deleteById(cheatMealId);
+  }
 }
