@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UpdateCheatMealFlow {
+public class UpdateCheatMealItemFlow {
 
   private final CheatMealRepository cheatMealRepository;
 
