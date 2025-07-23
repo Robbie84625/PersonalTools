@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class UpdateCheatMealRequest {
+public class UpdateCheatMealItemRequest {
   /** 作弊餐點名稱 */
   private String name;
 
