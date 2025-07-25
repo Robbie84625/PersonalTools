@@ -1,5 +1,6 @@
 package com.robbie.personaltools.infra.databases.entity.cheatmeal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,4 +28,8 @@ public class Meal {
 
   /** 作弊餐類別 */
   private String category;
+
+  /** 客戶 ID */
+  @Column(name = "customer_id")
+  private String customerId;
 }

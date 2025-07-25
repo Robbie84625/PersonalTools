@@ -4,6 +4,7 @@ import com.robbie.personaltools.constant.ErrorInfo;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.domain.cheatmeal.repository.CheatMealRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -11,17 +12,21 @@ import org.springframework.stereotype.Service;
 public class DeleteCheatMealItemFlow {
   private final CheatMealRepository cheatMealRepository;
 
-  public void execute(Long cheatMealId) throws ValidException {
-    if (cheatMealId == null) {
-      throw new ValidException(ErrorCodeEnum.CHEAT_MEAL_ID_NOT_EXIST);
-    }
+  @Value("{customer.id}")
+  private String customerId;
 
-    this.cheatMealRepository.deleteCheatMeal(cheatMealId);
+  public void execute(Long cheatMealId) throws ValidException {
+
+    int deletedRows =
+        this.cheatMealRepository.deleteByCustomerIdAndId(this.customerId, cheatMealId);
+    if (deletedRows == 0) {
+      throw new ValidException(ErrorCodeEnum.DELETE_ERROR);
+    }
   }
 
   @RequiredArgsConstructor
   public enum ErrorCodeEnum implements ErrorInfo {
-    CHEAT_MEAL_ID_NOT_EXIST("作弊餐 ID 不存在");
+    DELETE_ERROR("刪除失敗");
 
     private final String errorMessage;
 

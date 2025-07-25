@@ -7,11 +7,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MealDao extends JpaRepository<Meal, Long> {
-  Optional<Meal> findByName(String name);
+  Optional<Meal> findByCustomerIdAndName(String customerId, String name);
 
-  Page<Meal> findByNameContaining(String keyword, Pageable pageable);
+  Page<Meal> findAllByCustomerId(String customerId, Pageable pageable);
 
-  Page<Meal> findByCategory(String category, Pageable pageable);
+  Page<Meal> findByCustomerIdAndNameContaining(
+      String customerId, String keyword, Pageable pageable);
 
-  Page<Meal> findByCategoryAndNameContaining(String category, String keyword, Pageable pageable);
+  Page<Meal> findByCustomerIdAndCategory(String customerId, String category, Pageable pageable);
+
+  Page<Meal> findByCustomerIdAndCategoryAndNameContaining(
+      String customerId, String category, String keyword, Pageable pageable);
+
+  int deleteByCustomerIdAndId(String customerId, Long cheatMealId);
 }

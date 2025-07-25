@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,27 +18,33 @@ import org.springframework.stereotype.Service;
 public class GetCheatMealsFlow {
   private final CheatMealRepository cheatMealRepository;
 
+  @Value("{customer.id}")
+  private String customerId;
+
   public Page<Result> execute(Command command) {
     Pageable pageable = PageRequest.of(command.getPage(), command.getSize());
 
     if (StringUtils.isBlank(command.getKeyword()) && StringUtils.isBlank(command.getCategory())) {
-      return this.cheatMealRepository.findAll(pageable).map(this::convertToResult);
+      return this.cheatMealRepository
+          .findAllByCustomerId(this.customerId, pageable)
+          .map(this::convertToResult);
     }
 
     if (!StringUtils.isBlank(command.getKeyword()) && StringUtils.isBlank(command.getCategory())) {
       return this.cheatMealRepository
-          .findByKeywordContaining(command.getKeyword(), pageable)
+          .findByCustomerIdAndKeywordContaining(this.customerId, command.getKeyword(), pageable)
           .map(this::convertToResult);
     }
 
     if (StringUtils.isBlank(command.getKeyword()) && !StringUtils.isBlank(command.getCategory())) {
       return this.cheatMealRepository
-          .findByCategory(command.getCategory(), pageable)
+          .findByCustomerIdAndCategory(this.customerId, command.getCategory(), pageable)
           .map(this::convertToResult);
     }
 
     return this.cheatMealRepository
-        .findByCategoryAndNameContaining(command.getCategory(), command.getKeyword(), pageable)
+        .findByCustomerIdCategoryAndNameContaining(
+            this.customerId, command.getCategory(), command.getKeyword(), pageable)
         .map(this::convertToResult);
   }
 

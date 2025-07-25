@@ -48,14 +48,14 @@ public class CheatMealController {
   }
 
   @Operation(summary = "新增消費紀錄")
-  @PostMapping("/CreateConsumption")
+  @PostMapping("/createConsumption")
   public void createConsumption(@Valid @RequestBody CreateConsumptionRequest request)
       throws Exception {
     this.createConsumptionPresentation.execute(request);
   }
 
   @Operation(summary = "取得作弊餐列表")
-  @PutMapping("/GetCheatMeals")
+  @GetMapping("/getCheatMeals")
   public GetCheatMealsResponse getCheatMeals(
       @RequestParam(required = false) String keyword,
       @RequestParam(required = false) String category,
@@ -65,7 +65,7 @@ public class CheatMealController {
   }
 
   @Operation(summary = "取得作弊餐品項內容")
-  @GetMapping("/GetCheatMealItem")
+  @GetMapping("/getCheatMealItem")
   public GetCheatMealItemResponse getCheatMealItem(
       @RequestParam(required = false) String cheatMealName,
       @RequestParam(required = false) Integer cheatMealPoint,
@@ -76,7 +76,7 @@ public class CheatMealController {
   }
 
   @Operation(summary = "取得預算")
-  @GetMapping("/GetBudget")
+  @GetMapping("/getBudget")
   public GetBudgetResponse getBudget() throws Exception {
     return this.getBudgetPresentation.execute();
   }

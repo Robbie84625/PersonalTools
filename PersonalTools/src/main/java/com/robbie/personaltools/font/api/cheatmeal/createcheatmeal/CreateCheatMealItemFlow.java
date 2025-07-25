@@ -8,6 +8,7 @@ import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -16,14 +17,18 @@ public class CreateCheatMealItemFlow {
 
   private final CheatMealRepository cheatMealRepository;
 
+  @Value("{customer.id}")
+  private String customerId;
+
   public void execute(Command command) throws ValidException {
 
-    Optional<Meal> existingMeal = this.cheatMealRepository.findCheatMealByName(command.getName());
+    Optional<Meal> existingMeal =
+        this.cheatMealRepository.findByCustomerIdAndMealName(this.customerId, command.getName());
     if (existingMeal.isPresent()) {
       throw new ValidException(ErrorCodeEnum.DUPLICATE_CHEAT_MEAL);
     }
 
-    this.cheatMealRepository.saveCheatMeal(this.createCheatMeal(command));
+    this.cheatMealRepository.saveCheatMeal(this.createCheatMeal(this.customerId, command));
   }
 
   @Builder
@@ -59,8 +64,9 @@ public class CreateCheatMealItemFlow {
     }
   }
 
-  private Meal createCheatMeal(Command command) {
+  private Meal createCheatMeal(String customerId, Command command) {
     Meal meal = new Meal();
+    meal.setCustomerId(customerId);
     meal.setName(command.getName());
     meal.setLevel(command.getLevel());
     meal.setCategory(command.getCategory());
