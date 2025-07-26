@@ -20,28 +20,36 @@ public class CheatMealPersistence implements CheatMealRepository {
   }
 
   @Override
-  public Optional<Meal> findCheatMealByName(String name) {
-    return this.mealDao.findByName(name);
+  public Optional<Meal> findByCustomerIdAndMealName(String customerId, String name) {
+    return this.mealDao.findByCustomerIdAndName(customerId, name);
   }
 
   @Override
-  public Page<Meal> findAll(Pageable pageable) {
-    return this.mealDao.findAll(pageable);
+  public Page<Meal> findAllByCustomerId(String customerId, Pageable pageable) {
+    return this.mealDao.findAllByCustomerId(customerId, pageable);
   }
 
   @Override
-  public Page<Meal> findByKeywordContaining(String keyword, Pageable pageable) {
-    return this.mealDao.findByNameContaining(keyword, pageable);
+  public Page<Meal> findByCustomerIdAndKeywordContaining(
+      String customerId, String keyword, Pageable pageable) {
+    return this.mealDao.findByCustomerIdAndNameContaining(customerId, keyword, pageable);
   }
 
   @Override
-  public Page<Meal> findByCategory(String category, Pageable pageable) {
-    return this.mealDao.findByCategory(category, pageable);
+  public Page<Meal> findByCustomerIdAndCategory(
+      String customerId, String category, Pageable pageable) {
+    return this.mealDao.findByCustomerIdAndCategory(customerId, category, pageable);
   }
 
   @Override
-  public Page<Meal> findByCategoryAndNameContaining(
-      String category, String keyword, Pageable pageable) {
-    return this.mealDao.findByCategoryAndNameContaining(category, keyword, pageable);
+  public Page<Meal> findByCustomerIdCategoryAndNameContaining(
+      String customerId, String category, String keyword, Pageable pageable) {
+    return this.mealDao.findByCustomerIdAndCategoryAndNameContaining(
+        customerId, category, keyword, pageable);
+  }
+
+  @Override
+  public int deleteByCustomerIdAndId(String customerId, Long cheatMealId) {
+    return this.mealDao.deleteByCustomerIdAndId(customerId, cheatMealId);
   }
 }
