@@ -8,13 +8,17 @@ import org.springframework.data.domain.Pageable;
 public interface CheatMealRepository {
   void saveCheatMeal(Meal meal);
 
-  Optional<Meal> findCheatMealByName(String name);
+  Optional<Meal> findByCustomerIdAndMealName(String customerId, String name);
 
-  Page<Meal> findAll(Pageable pageable);
+  Page<Meal> findAllByCustomerId(String customerId, Pageable pageable);
 
-  Page<Meal> findByKeywordContaining(String keyword, Pageable pageable);
+  Page<Meal> findByCustomerIdAndKeywordContaining(
+      String customerId, String keyword, Pageable pageable);
 
-  Page<Meal> findByCategory(String category, Pageable pageable);
+  Page<Meal> findByCustomerIdAndCategory(String customerId, String category, Pageable pageable);
 
-  Page<Meal> findByCategoryAndNameContaining(String category, String keyword, Pageable pageable);
+  Page<Meal> findByCustomerIdCategoryAndNameContaining(
+      String customerId, String category, String keyword, Pageable pageable);
+
+  int deleteByCustomerIdAndId(String customerId, Long cheatMealId);
 }
