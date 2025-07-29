@@ -1,13 +1,13 @@
 package com.robbie.personaltools.font.api.cheatmeal.getbudget;
 
 import com.robbie.personaltools.constant.ErrorInfo;
-import com.robbie.personaltools.font.api.cheatmeal.getcheatmealitem.GetCheatMealItemFlow.Result;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
-import com.robbie.personaltools.infra.databases.entity.cheatmeal.Consumption;
+import com.robbie.personaltools.infra.databases.entity.cheatmeal.Record;
+import com.robbie.personaltools.infra.databases.entity.cheatmeal.RecordMeal;
 import com.robbie.personaltools.infra.exception.ValidException;
-import com.robbie.personaltools.middle.domain.cheatmeal.repository.CheatMealBudgetRepository;
-import com.robbie.personaltools.middle.domain.cheatmeal.repository.ConsumptionRepository;
-import java.time.LocalDateTime;
+import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
+import com.robbie.personaltools.middle.infrastructure.persistence.RecordPersistence;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
@@ -18,32 +18,31 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class GetBudgetFlow {
-  private final CheatMealBudgetRepository cheatMealBudgetRepository;
-  private final ConsumptionRepository consumptionRepository;
+  private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
+  private final RecordPersistence recordPersistence;
 
   @Value("{customer.id}")
   private String customerId;
 
   public Result execute() throws ValidException {
-    // 取得使用者設定的額度
+    // 取得使用者設定的預算
     BudgetSetting budgetSetting =
-        this.cheatMealBudgetRepository
+        this.cheatMealBudgetPersistence
             .findByCustomerId(this.customerId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
 
     // 使用者設定預算
     Integer budget = budgetSetting.getBudget();
 
-    LocalDateTime startDateTime = budgetSetting.getCycleStartDate().atStartOfDay();
-    LocalDateTime endDateTime = budgetSetting.getCycleEndDate().plusDays(1).atStartOfDay();
+    List<Record> records =
+        this.recordPersistence.findByCustomerIdAndDateBetweenStartAtAndEndAt(
+            this.customerId, LocalDate.now());
 
-    // 去消費明細取得以消費額度並加總
-    List<Consumption> consumptions =
-        this.consumptionRepository.findAllByConsumedAtBetween(
-            this.customerId, startDateTime, endDateTime);
+    Long recordId = records.get(0).getId();
 
-    Integer totalConsumedPoint =
-        consumptions.stream().mapToInt(Consumption::getPointsConsumed).sum();
+    // 去紀錄取得餐點消耗額度並加總
+    List<RecordMeal> recordMeals = this.recordPersistence.findByRecordId(recordId);
+    Integer totalConsumedPoint = recordMeals.stream().mapToInt(RecordMeal::getMealPoint).sum();
 
     return Result.builder()
         .budget(budget)

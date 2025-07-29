@@ -3,7 +3,7 @@ package com.robbie.personaltools.font.api.cheatmeal.updatecheatmeal;
 import com.robbie.personaltools.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Meal;
 import com.robbie.personaltools.infra.exception.ValidException;
-import com.robbie.personaltools.middle.domain.cheatmeal.repository.CheatMealRepository;
+import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateCheatMealItemFlow {
 
-  private final CheatMealRepository cheatMealRepository;
+  private final CheatMealPersistence cheatMealPersistence;
 
   public void execute(Command command) throws ValidException {
 
@@ -27,7 +27,7 @@ public class UpdateCheatMealItemFlow {
     updateMeal.setPoint(command.getPoint());
     updateMeal.setCategory(command.getCategory());
 
-    this.cheatMealRepository.saveCheatMeal(updateMeal);
+    this.cheatMealPersistence.saveCheatMeal(updateMeal);
   }
 
   private void validateCommand(Command command) throws ValidException {

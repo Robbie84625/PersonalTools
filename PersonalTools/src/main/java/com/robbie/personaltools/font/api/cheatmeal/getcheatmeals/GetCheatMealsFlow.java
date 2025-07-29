@@ -1,12 +1,11 @@
 package com.robbie.personaltools.font.api.cheatmeal.getcheatmeals;
 
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Meal;
-import com.robbie.personaltools.middle.domain.cheatmeal.repository.CheatMealRepository;
+import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class GetCheatMealsFlow {
-  private final CheatMealRepository cheatMealRepository;
+  private final CheatMealPersistence cheatMealPersistence;
 
   @Value("{customer.id}")
   private String customerId;
@@ -24,27 +23,8 @@ public class GetCheatMealsFlow {
   public Page<Result> execute(Command command) {
     Pageable pageable = PageRequest.of(command.getPage(), command.getSize());
 
-    if (StringUtils.isBlank(command.getKeyword()) && StringUtils.isBlank(command.getCategory())) {
-      return this.cheatMealRepository
-          .findAllByCustomerId(this.customerId, pageable)
-          .map(this::convertToResult);
-    }
-
-    if (!StringUtils.isBlank(command.getKeyword()) && StringUtils.isBlank(command.getCategory())) {
-      return this.cheatMealRepository
-          .findByCustomerIdAndKeywordContaining(this.customerId, command.getKeyword(), pageable)
-          .map(this::convertToResult);
-    }
-
-    if (StringUtils.isBlank(command.getKeyword()) && !StringUtils.isBlank(command.getCategory())) {
-      return this.cheatMealRepository
-          .findByCustomerIdAndCategory(this.customerId, command.getCategory(), pageable)
-          .map(this::convertToResult);
-    }
-
-    return this.cheatMealRepository
-        .findByCustomerIdCategoryAndNameContaining(
-            this.customerId, command.getCategory(), command.getKeyword(), pageable)
+    return this.cheatMealPersistence
+        .findMeals(this.customerId, command.getKeyword(), command.getCategory(), pageable)
         .map(this::convertToResult);
   }
 
