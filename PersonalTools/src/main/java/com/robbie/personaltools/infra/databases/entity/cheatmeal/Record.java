@@ -6,31 +6,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.Data;
 
 @Entity
-@Table(name = "consumption", schema = "cheat_meal")
+@Table(name = "record", schema = "cheat_meal")
 @Data
-public class Consumption {
+public class Record {
   /** id */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /** 會員編號 */
+  /** 客戶 ID */
   @Column(name = "customer_id")
   private String customerId;
 
-  /** 作弊餐名稱 */
-  @Column(name = "meal_name")
-  private String mealName;
+  /** 作弊餐紀錄開始日期 */
+  @Column(name = "start_at")
+  private LocalDate startAt;
 
-  /** 消費額度 */
-  @Column(name = "points_consumed")
-  private Integer pointsConsumed;
+  /** 作弊餐紀錄結束日期 */
+  @Column(name = "end_at")
+  private LocalDate endAt;
 
-  /** 消費日期 */
-  @Column(name = "consumed_at")
-  private LocalDateTime consumedAt;
+  /** 使用者作弊餐總額度 */
+  private Integer budget;
 }
