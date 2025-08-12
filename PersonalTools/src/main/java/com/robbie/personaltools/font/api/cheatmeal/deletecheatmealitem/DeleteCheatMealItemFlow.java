@@ -2,7 +2,7 @@ package com.robbie.personaltools.font.api.cheatmeal.deletecheatmealitem;
 
 import com.robbie.personaltools.constant.ErrorInfo;
 import com.robbie.personaltools.infra.exception.ValidException;
-import com.robbie.personaltools.middle.domain.cheatmeal.repository.CheatMealRepository;
+import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class DeleteCheatMealItemFlow {
-  private final CheatMealRepository cheatMealRepository;
+  private final CheatMealPersistence cheatMealPersistence;
 
   @Value("{customer.id}")
   private String customerId;
@@ -18,7 +18,7 @@ public class DeleteCheatMealItemFlow {
   public void execute(Long cheatMealId) throws ValidException {
 
     int deletedRows =
-        this.cheatMealRepository.deleteByCustomerIdAndId(this.customerId, cheatMealId);
+        this.cheatMealPersistence.deleteByCustomerIdAndId(this.customerId, cheatMealId);
     if (deletedRows == 0) {
       throw new ValidException(ErrorCodeEnum.DELETE_ERROR);
     }

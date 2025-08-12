@@ -3,7 +3,7 @@ package com.robbie.personaltools.font.api.cheatmeal.createcheatmeal;
 import com.robbie.personaltools.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Meal;
 import com.robbie.personaltools.infra.exception.ValidException;
-import com.robbie.personaltools.middle.domain.cheatmeal.repository.CheatMealRepository;
+import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CreateCheatMealItemFlow {
 
-  private final CheatMealRepository cheatMealRepository;
+  private final CheatMealPersistence cheatMealPersistence;
 
   @Value("{customer.id}")
   private String customerId;
@@ -23,12 +23,12 @@ public class CreateCheatMealItemFlow {
   public void execute(Command command) throws ValidException {
 
     Optional<Meal> existingMeal =
-        this.cheatMealRepository.findByCustomerIdAndMealName(this.customerId, command.getName());
+        this.cheatMealPersistence.findByCustomerIdAndMealName(this.customerId, command.getName());
     if (existingMeal.isPresent()) {
       throw new ValidException(ErrorCodeEnum.DUPLICATE_CHEAT_MEAL);
     }
 
-    this.cheatMealRepository.saveCheatMeal(this.createCheatMeal(this.customerId, command));
+    this.cheatMealPersistence.saveCheatMeal(this.createCheatMeal(this.customerId, command));
   }
 
   @Builder

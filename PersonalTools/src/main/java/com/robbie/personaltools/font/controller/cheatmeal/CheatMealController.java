@@ -2,8 +2,8 @@ package com.robbie.personaltools.font.controller.cheatmeal;
 
 import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.CreateCheatMealItemPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.model.CreateCheatMealItemRequest;
-import com.robbie.personaltools.font.api.cheatmeal.createconsumption.CreateConsumptionPresentation;
-import com.robbie.personaltools.font.api.cheatmeal.createconsumption.model.CreateConsumptionRequest;
+import com.robbie.personaltools.font.api.cheatmeal.createrecord.CreateRecordPresentation;
+import com.robbie.personaltools.font.api.cheatmeal.createrecord.model.CreateRecordRequest;
 import com.robbie.personaltools.font.api.cheatmeal.deletecheatmealitem.DeleteCheatMealItemPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.getbudget.GetBudgetPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.getbudget.model.GetBudgetResponse;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CheatMealController {
   private final CreateCheatMealItemPresentation createCheatMealItemPresentation;
-  private final CreateConsumptionPresentation createConsumptionPresentation;
+  private final CreateRecordPresentation createRecordPresentation;
   private final GetCheatMealsPresentation getCheatMealsPresentation;
   private final GetCheatMealItemPresentation getCheatMealItemPresentation;
   private final GetBudgetPresentation getBudgetPresentation;
@@ -48,10 +48,9 @@ public class CheatMealController {
   }
 
   @Operation(summary = "新增消費紀錄")
-  @PostMapping("/createConsumption")
-  public void createConsumption(@Valid @RequestBody CreateConsumptionRequest request)
-      throws Exception {
-    this.createConsumptionPresentation.execute(request);
+  @PostMapping("/createRecord")
+  public void createRecord(@Valid @RequestBody CreateRecordRequest request) throws Exception {
+    this.createRecordPresentation.execute(request);
   }
 
   @Operation(summary = "取得作弊餐列表")
