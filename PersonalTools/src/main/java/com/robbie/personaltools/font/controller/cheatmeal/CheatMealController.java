@@ -5,6 +5,8 @@ import com.robbie.personaltools.font.api.cheatmeal.createcheatmeal.model.CreateC
 import com.robbie.personaltools.font.api.cheatmeal.createrecord.CreateRecordPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.createrecord.model.CreateRecordRequest;
 import com.robbie.personaltools.font.api.cheatmeal.deletecheatmealitem.DeleteCheatMealItemPresentation;
+import com.robbie.personaltools.font.api.cheatmeal.getSettingData.GetSettingDataPresentation;
+import com.robbie.personaltools.font.api.cheatmeal.getSettingData.model.GetSettingDataResponse;
 import com.robbie.personaltools.font.api.cheatmeal.getbudget.GetBudgetPresentation;
 import com.robbie.personaltools.font.api.cheatmeal.getbudget.model.GetBudgetResponse;
 import com.robbie.personaltools.font.api.cheatmeal.getcheatmealitem.GetCheatMealItemPresentation;
@@ -37,6 +39,7 @@ public class CheatMealController {
   private final GetCheatMealsPresentation getCheatMealsPresentation;
   private final GetCheatMealItemPresentation getCheatMealItemPresentation;
   private final GetBudgetPresentation getBudgetPresentation;
+  private final GetSettingDataPresentation getSettingDataPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
   private final DeleteCheatMealItemPresentation deleteCheatMealItemPresentation;
 
@@ -78,6 +81,12 @@ public class CheatMealController {
   @GetMapping("/getBudget")
   public GetBudgetResponse getBudget() throws Exception {
     return this.getBudgetPresentation.execute();
+  }
+
+  @Operation(summary = "取得設定頁面")
+  @GetMapping("/getSettingData")
+  public GetSettingDataResponse getSettingData() throws Exception {
+    return this.getSettingDataPresentation.execute();
   }
 
   @Operation(summary = "更新作弊餐品項")
