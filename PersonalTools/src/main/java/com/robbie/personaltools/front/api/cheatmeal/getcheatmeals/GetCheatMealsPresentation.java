@@ -3,6 +3,7 @@ package com.robbie.personaltools.front.api.cheatmeal.getcheatmeals;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsFlow.Command;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsFlow.Result;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
+import com.robbie.personaltools.infra.exception.ValidException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Service;
 public class GetCheatMealsPresentation {
   private final GetCheatMealsFlow getCheatMealsFlow;
 
-  public GetCheatMealsResponse execute(
-      String keyword, String category, Integer page, Integer size) {
+  public GetCheatMealsResponse execute(String keyword, String category, Integer page, Integer size)
+      throws ValidException {
     Page<Result> result =
         this.getCheatMealsFlow.execute(
             Command.builder().keyword(keyword).category(category).page(page).size(size).build());
