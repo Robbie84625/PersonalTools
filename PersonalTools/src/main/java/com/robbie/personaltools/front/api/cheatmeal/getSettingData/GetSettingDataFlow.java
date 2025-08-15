@@ -5,8 +5,8 @@ import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.databases.entity.user.Account;
 import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
+import com.robbie.personaltools.middle.infrastructure.persistence.AccountPersistence;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
-import com.robbie.personaltools.middle.infrastructure.persistence.MemberPersistence;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetSettingDataFlow {
 
-  private final MemberPersistence memberPersistence;
+  private final AccountPersistence accountPersistence;
   private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
 
   private final TokenGetter tokenGetter;
@@ -26,7 +26,7 @@ public class GetSettingDataFlow {
 
     // 取得使用者資料
     Account member =
-        this.memberPersistence
+        this.accountPersistence
             .findByUserId(userId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
 
