@@ -15,9 +15,9 @@ public class DeleteCheatMealItemFlow {
   private final TokenGetter tokenGetter;
 
   public void execute(Long cheatMealId) throws ValidException {
-    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+    String userId = this.tokenGetter.getTokenInfo().getUserId();
 
-    int deletedRows = this.cheatMealPersistence.deleteByCustomerIdAndId(memberId, cheatMealId);
+    int deletedRows = this.cheatMealPersistence.deleteByUserIdAndId(userId, cheatMealId);
     if (deletedRows == 0) {
       throw new ValidException(ErrorCodeEnum.DELETE_ERROR);
     }

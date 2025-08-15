@@ -24,31 +24,29 @@ public class CreateRecordFlow {
   private final TokenGetter tokenGetter;
 
   public void execute(Command command) throws ValidException {
-    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+    String userId = this.tokenGetter.getTokenInfo().getUserId();
 
     // 判斷是否為新使用者
-    boolean isNewMember = !this.recordPersistence.existsByCustomerId(memberId);
+    boolean isNewMember = !this.recordPersistence.existsByUserId(userId);
 
     // 查詢該使用者這週是否已有記錄
     List<Record> thisWeekRecords =
-        this.recordPersistence.findByCustomerIdAndDateBetweenStartAtAndEndAt(
-            memberId, LocalDate.now());
+        this.recordPersistence.findByUserIdAndDateBetweenStartAtAndEndAt(userId, LocalDate.now());
 
-    Long recordId =
-        this.determineRecordByUserState(isNewMember, memberId, thisWeekRecords, command);
+    Long recordId = this.determineRecordByUserState(isNewMember, userId, thisWeekRecords, command);
 
     RecordMeal recordMeal = this.createRecordMeal(command, recordId);
     this.recordPersistence.saveRecordMeal(recordMeal);
   }
 
   private Long determineRecordByUserState(
-      boolean isNewMember, String customerId, List<Record> thisWeekRecords, Command command) {
+      boolean isNewMember, String userId, List<Record> thisWeekRecords, Command command) {
     if (isNewMember) {
       LocalDate startAt = LocalDate.now();
       LocalDate endAt =
           LocalDate.now()
               .with(TemporalAdjusters.nextOrSame(DayOfWeek.of(command.getResetWeekday())));
-      return this.createRecord(command, customerId, startAt, endAt);
+      return this.createRecord(command, userId, startAt, endAt);
     } else if (thisWeekRecords.isEmpty()) {
       LocalDate startAt =
           LocalDate.now()
@@ -57,16 +55,15 @@ public class CreateRecordFlow {
       LocalDate endAt =
           LocalDate.now()
               .with(TemporalAdjusters.nextOrSame(DayOfWeek.of(command.getResetWeekday())));
-      return this.createRecord(command, customerId, startAt, endAt);
+      return this.createRecord(command, userId, startAt, endAt);
     } else {
       return thisWeekRecords.get(0).getId();
     }
   }
 
-  private Long createRecord(
-      Command command, String customerId, LocalDate startAt, LocalDate endAt) {
+  private Long createRecord(Command command, String userId, LocalDate startAt, LocalDate endAt) {
     Record record = new Record();
-    record.setCustomerId(customerId);
+    record.setUserId(userId);
     record.setBudget(command.getTotalBudget());
     record.setStartAt(startAt);
     record.setEndAt(endAt);

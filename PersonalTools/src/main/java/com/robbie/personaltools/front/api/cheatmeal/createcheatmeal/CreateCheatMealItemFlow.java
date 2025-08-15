@@ -20,15 +20,15 @@ public class CreateCheatMealItemFlow {
   private final TokenGetter tokenGetter;
 
   public void execute(Command command) throws ValidException {
-    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+    String userId = this.tokenGetter.getTokenInfo().getUserId();
 
     Optional<Meal> existingMeal =
-        this.cheatMealPersistence.findByCustomerIdAndMealName(memberId, command.getName());
+        this.cheatMealPersistence.findByUserIdAndMealName(userId, command.getName());
     if (existingMeal.isPresent()) {
       throw new ValidException(ErrorCodeEnum.DUPLICATE_CHEAT_MEAL);
     }
 
-    this.cheatMealPersistence.saveCheatMeal(this.createCheatMeal(memberId, command));
+    this.cheatMealPersistence.saveCheatMeal(this.createCheatMeal(userId, command));
   }
 
   @Builder
@@ -64,9 +64,9 @@ public class CreateCheatMealItemFlow {
     }
   }
 
-  private Meal createCheatMeal(String customerId, Command command) {
+  private Meal createCheatMeal(String userId, Command command) {
     Meal meal = new Meal();
-    meal.setCustomerId(customerId);
+    meal.setUserId(userId);
     meal.setName(command.getName());
     meal.setLevel(command.getLevel());
     meal.setCategory(command.getCategory());

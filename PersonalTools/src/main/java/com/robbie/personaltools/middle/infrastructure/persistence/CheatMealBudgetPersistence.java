@@ -12,7 +12,7 @@ public class CheatMealBudgetPersistence {
 
   private final BudgetSettingsDao budgetSettingsDao;
 
-  public Optional<BudgetSetting> findByCustomerId(String customerId) {
-    return this.budgetSettingsDao.findByCustomerId(customerId);
+  public Optional<BudgetSetting> findByUserId(String userId) {
+    return this.budgetSettingsDao.findByUserId(userId);
   }
 }

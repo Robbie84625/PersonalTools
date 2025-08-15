@@ -9,6 +9,6 @@ import lombok.Data;
 public class AccessTokenInfo implements Serializable {
   @Serial private static final long serialVersionUID = 1L;
 
-  @JsonProperty("member_id")
-  private String memberId;
+  @JsonProperty("user_id")
+  private String userId;
 }

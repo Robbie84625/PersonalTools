@@ -15,13 +15,12 @@ public class RecordPersistence {
   private final RecordDao recordDao;
   private final RecordMealDao recordMealDao;
 
-  public boolean existsByCustomerId(String customerId) {
-    return this.recordDao.existsByCustomerId(customerId);
+  public boolean existsByUserId(String userId) {
+    return this.recordDao.existsByUserId(userId);
   }
 
-  public List<Record> findByCustomerIdAndDateBetweenStartAtAndEndAt(
-      String customerId, LocalDate date) {
-    return this.recordDao.findByCustomerIdAndDateBetweenStartAtAndEndAt(customerId, date);
+  public List<Record> findByUserIdAndDateBetweenStartAtAndEndAt(String userId, LocalDate date) {
+    return this.recordDao.findByUserIdAndDateBetweenStartAtAndEndAt(userId, date);
   }
 
   public Record saveRecord(Record record) {

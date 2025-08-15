@@ -23,10 +23,10 @@ public class GetCheatMealsFlow {
   public Page<Result> execute(Command command) throws ValidException {
     Pageable pageable = PageRequest.of(command.getPage(), command.getSize());
 
-    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+    String userId = this.tokenGetter.getTokenInfo().getUserId();
 
     return this.cheatMealPersistence
-        .findMeals(memberId, command.getKeyword(), command.getCategory(), pageable)
+        .findMeals(userId, command.getKeyword(), command.getCategory(), pageable)
         .map(this::convertToResult);
   }
 

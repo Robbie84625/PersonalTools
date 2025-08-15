@@ -24,20 +24,19 @@ public class GetBudgetFlow {
   private final TokenGetter tokenGetter;
 
   public Result execute() throws ValidException {
-    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+    String userId = this.tokenGetter.getTokenInfo().getUserId();
 
     // 取得使用者設定的預算
     BudgetSetting budgetSetting =
         this.cheatMealBudgetPersistence
-            .findByCustomerId(memberId)
+            .findByUserId(userId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
 
     // 使用者設定預算
     Integer budget = budgetSetting.getBudget();
 
     List<Record> records =
-        this.recordPersistence.findByCustomerIdAndDateBetweenStartAtAndEndAt(
-            memberId, LocalDate.now());
+        this.recordPersistence.findByUserIdAndDateBetweenStartAtAndEndAt(userId, LocalDate.now());
 
     Long recordId = records.get(0).getId();
 

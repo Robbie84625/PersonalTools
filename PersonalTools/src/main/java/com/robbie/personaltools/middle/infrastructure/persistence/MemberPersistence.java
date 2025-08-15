@@ -1,7 +1,7 @@
 package com.robbie.personaltools.middle.infrastructure.persistence;
 
 import com.robbie.personaltools.infra.databases.dao.cheatmeal.MemberDao;
-import com.robbie.personaltools.infra.databases.entity.member.Member;
+import com.robbie.personaltools.infra.databases.entity.user.Account;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class MemberPersistence {
   private final MemberDao memberDao;
 
-  public Optional<Member> findByCustomerId(String customerId) {
-    return this.memberDao.findById(customerId);
+  public Optional<Account> findByUserId(String userId) {
+    return this.memberDao.findById(userId);
   }
 }

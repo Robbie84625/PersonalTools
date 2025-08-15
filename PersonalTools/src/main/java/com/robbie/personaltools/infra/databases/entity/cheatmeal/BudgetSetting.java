@@ -18,8 +18,8 @@ public class BudgetSetting {
   private Long id;
 
   /** 會員編號 */
-  @Column(name = "customer_id")
-  private String customerId;
+  @Column(name = "user_id")
+  private String userId;
 
   /** 使用者作弊餐總額度 */
   private Integer budget;

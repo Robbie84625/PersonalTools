@@ -30,6 +30,6 @@ public class Meal {
   private String category;
 
   /** 客戶 ID */
-  @Column(name = "customer_id")
-  private String customerId;
+  @Column(name = "user_id")
+  private String userId;
 }

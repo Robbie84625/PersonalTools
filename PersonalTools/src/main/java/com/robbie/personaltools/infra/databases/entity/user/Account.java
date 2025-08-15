@@ -1,4 +1,4 @@
-package com.robbie.personaltools.infra.databases.entity.member;
+package com.robbie.personaltools.infra.databases.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Entity
-@Table(name = "member", schema = "member")
+@Table(name = "account", schema = "user")
 @Data
-public class Member {
+public class Account {
   /** 會員編號 */
   @Id private String id;
 
