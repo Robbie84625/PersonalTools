@@ -15,6 +15,7 @@ import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsP
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.model.UpdateCheatMealItemRequest;
+import com.robbie.personaltools.infra.exception.ValidException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -62,7 +63,8 @@ public class CheatMealController {
       @RequestParam(required = false) String keyword,
       @RequestParam(required = false) String category,
       @RequestParam(defaultValue = "0") Integer page,
-      @RequestParam(defaultValue = "20") Integer size) {
+      @RequestParam(defaultValue = "20") Integer size)
+      throws ValidException {
     return this.getCheatMealsPresentation.execute(keyword, category, page, size);
   }
 
