@@ -1,14 +1,14 @@
 package com.robbie.personaltools.front.api.cheatmeal.createcheatmeal;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Meal;
+import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -17,18 +17,18 @@ public class CreateCheatMealItemFlow {
 
   private final CheatMealPersistence cheatMealPersistence;
 
-  @Value("${customer.id}")
-  private String customerId;
+  private final TokenGetter tokenGetter;
 
   public void execute(Command command) throws ValidException {
+    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
 
     Optional<Meal> existingMeal =
-        this.cheatMealPersistence.findByCustomerIdAndMealName(this.customerId, command.getName());
+        this.cheatMealPersistence.findByCustomerIdAndMealName(memberId, command.getName());
     if (existingMeal.isPresent()) {
       throw new ValidException(ErrorCodeEnum.DUPLICATE_CHEAT_MEAL);
     }
 
-    this.cheatMealPersistence.saveCheatMeal(this.createCheatMeal(this.customerId, command));
+    this.cheatMealPersistence.saveCheatMeal(this.createCheatMeal(memberId, command));
   }
 
   @Builder

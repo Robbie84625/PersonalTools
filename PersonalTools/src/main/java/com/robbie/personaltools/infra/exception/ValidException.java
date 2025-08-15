@@ -1,6 +1,6 @@
 package com.robbie.personaltools.infra.exception;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.model.ResultError;
 import java.text.MessageFormat;
 import java.util.Optional;

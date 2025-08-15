@@ -1,6 +1,6 @@
 package com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Meal;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;

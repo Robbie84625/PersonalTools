@@ -1,10 +1,10 @@
 package com.robbie.personaltools.front.api.cheatmeal.deletecheatmealitem;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
+import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
 public class DeleteCheatMealItemFlow {
   private final CheatMealPersistence cheatMealPersistence;
 
-  @Value("${customer.id}")
-  private String customerId;
+  private final TokenGetter tokenGetter;
 
   public void execute(Long cheatMealId) throws ValidException {
+    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
 
-    int deletedRows =
-        this.cheatMealPersistence.deleteByCustomerIdAndId(this.customerId, cheatMealId);
+    int deletedRows = this.cheatMealPersistence.deleteByCustomerIdAndId(memberId, cheatMealId);
     if (deletedRows == 0) {
       throw new ValidException(ErrorCodeEnum.DELETE_ERROR);
     }

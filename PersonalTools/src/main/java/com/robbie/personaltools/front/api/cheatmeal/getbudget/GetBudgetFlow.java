@@ -1,9 +1,10 @@
 package com.robbie.personaltools.front.api.cheatmeal.getbudget;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Record;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.RecordMeal;
+import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
 import com.robbie.personaltools.middle.infrastructure.persistence.RecordPersistence;
@@ -12,7 +13,6 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -21,14 +21,15 @@ public class GetBudgetFlow {
   private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
   private final RecordPersistence recordPersistence;
 
-  @Value("${customer.id}")
-  private String customerId;
+  private final TokenGetter tokenGetter;
 
   public Result execute() throws ValidException {
+    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+
     // 取得使用者設定的預算
     BudgetSetting budgetSetting =
         this.cheatMealBudgetPersistence
-            .findByCustomerId(this.customerId)
+            .findByCustomerId(memberId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
 
     // 使用者設定預算
@@ -36,7 +37,7 @@ public class GetBudgetFlow {
 
     List<Record> records =
         this.recordPersistence.findByCustomerIdAndDateBetweenStartAtAndEndAt(
-            this.customerId, LocalDate.now());
+            memberId, LocalDate.now());
 
     Long recordId = records.get(0).getId();
 

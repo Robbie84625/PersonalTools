@@ -1,12 +1,13 @@
 package com.robbie.personaltools.front.api.cheatmeal.getcheatmeals;
 
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Meal;
+import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
+import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,14 +18,15 @@ import org.springframework.stereotype.Service;
 public class GetCheatMealsFlow {
   private final CheatMealPersistence cheatMealPersistence;
 
-  @Value("${customer.id}")
-  private String customerId;
+  private final TokenGetter tokenGetter;
 
-  public Page<Result> execute(Command command) {
+  public Page<Result> execute(Command command) throws ValidException {
     Pageable pageable = PageRequest.of(command.getPage(), command.getSize());
 
+    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+
     return this.cheatMealPersistence
-        .findMeals(this.customerId, command.getKeyword(), command.getCategory(), pageable)
+        .findMeals(memberId, command.getKeyword(), command.getCategory(), pageable)
         .map(this::convertToResult);
   }
 

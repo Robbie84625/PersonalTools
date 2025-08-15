@@ -2,6 +2,7 @@ package com.robbie.personaltools.front.api.cheatmeal.createrecord;
 
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.Record;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.RecordMeal;
+import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.RecordPersistence;
 import java.time.DayOfWeek;
@@ -12,7 +13,6 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -21,20 +21,21 @@ public class CreateRecordFlow {
 
   private final RecordPersistence recordPersistence;
 
-  @Value("${customer.id}")
-  private String customerId;
+  private final TokenGetter tokenGetter;
 
   public void execute(Command command) throws ValidException {
+    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+
     // 判斷是否為新使用者
-    boolean isNewMember = !this.recordPersistence.existsByCustomerId(this.customerId);
+    boolean isNewMember = !this.recordPersistence.existsByCustomerId(memberId);
 
     // 查詢該使用者這週是否已有記錄
     List<Record> thisWeekRecords =
         this.recordPersistence.findByCustomerIdAndDateBetweenStartAtAndEndAt(
-            this.customerId, LocalDate.now());
+            memberId, LocalDate.now());
 
     Long recordId =
-        this.determineRecordByUserState(isNewMember, this.customerId, thisWeekRecords, command);
+        this.determineRecordByUserState(isNewMember, memberId, thisWeekRecords, command);
 
     RecordMeal recordMeal = this.createRecordMeal(command, recordId);
     this.recordPersistence.saveRecordMeal(recordMeal);

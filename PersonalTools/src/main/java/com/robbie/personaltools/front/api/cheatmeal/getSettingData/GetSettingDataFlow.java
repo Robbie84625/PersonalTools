@@ -1,15 +1,15 @@
 package com.robbie.personaltools.front.api.cheatmeal.getSettingData;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.databases.entity.member.Member;
+import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
 import com.robbie.personaltools.middle.infrastructure.persistence.MemberPersistence;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -19,20 +19,21 @@ public class GetSettingDataFlow {
   private final MemberPersistence memberPersistence;
   private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
 
-  @Value("${customer.id}")
-  private String customerId;
+  private final TokenGetter tokenGetter;
 
   public Result execute() throws ValidException {
+    String memberId = this.tokenGetter.getTokenInfo().getMemberId();
+
     // 取得使用者資料
     Member member =
         this.memberPersistence
-            .findByCustomerId(this.customerId)
+            .findByCustomerId(memberId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
 
     // 取得使用者設定的預算
     BudgetSetting budgetSetting =
         this.cheatMealBudgetPersistence
-            .findByCustomerId(this.customerId)
+            .findByCustomerId(memberId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
 
     return Result.builder()
