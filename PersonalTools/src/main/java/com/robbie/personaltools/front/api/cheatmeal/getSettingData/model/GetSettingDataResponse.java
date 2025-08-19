@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class GetSettingDataResponse {
   /** 使用者名稱 */
-  private String customerName;
+  private String userName;
 
   /** 使用者 Type */
-  private String customerType;
+  private String userType;
 
   /** Google 電子郵件 */
   private String email;

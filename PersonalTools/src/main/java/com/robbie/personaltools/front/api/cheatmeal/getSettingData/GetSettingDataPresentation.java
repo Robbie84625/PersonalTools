@@ -15,8 +15,8 @@ public class GetSettingDataPresentation {
     Result result = this.getSettingDataFlow.execute();
 
     return GetSettingDataResponse.builder()
-        .customerName(result.getCustomerName())
-        .customerType(result.getCustomerType())
+        .userName(result.getUserName())
+        .userType(result.getUserType())
         .email(result.getEmail())
         .budget(result.getBudget())
         .resetWeekday(result.getResetWeekday())

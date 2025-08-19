@@ -27,21 +27,21 @@ public class CreateRecordFlow {
     String userId = this.tokenGetter.getTokenInfo().getUserId();
 
     // 判斷是否為新使用者
-    boolean isNewMember = !this.recordPersistence.existsByUserId(userId);
+    boolean isNewUser = !this.recordPersistence.existsByUserId(userId);
 
     // 查詢該使用者這週是否已有記錄
     List<Record> thisWeekRecords =
         this.recordPersistence.findByUserIdAndDateBetweenStartAtAndEndAt(userId, LocalDate.now());
 
-    Long recordId = this.determineRecordByUserState(isNewMember, userId, thisWeekRecords, command);
+    Long recordId = this.determineRecordByUserState(isNewUser, userId, thisWeekRecords, command);
 
     RecordMeal recordMeal = this.createRecordMeal(command, recordId);
     this.recordPersistence.saveRecordMeal(recordMeal);
   }
 
   private Long determineRecordByUserState(
-      boolean isNewMember, String userId, List<Record> thisWeekRecords, Command command) {
-    if (isNewMember) {
+      boolean isNewUser, String userId, List<Record> thisWeekRecords, Command command) {
+    if (isNewUser) {
       LocalDate startAt = LocalDate.now();
       LocalDate endAt =
           LocalDate.now()

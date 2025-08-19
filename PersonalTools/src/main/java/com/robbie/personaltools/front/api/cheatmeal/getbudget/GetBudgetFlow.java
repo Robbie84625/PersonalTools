@@ -30,7 +30,7 @@ public class GetBudgetFlow {
     BudgetSetting budgetSetting =
         this.cheatMealBudgetPersistence
             .findByUserId(userId)
-            .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
+            .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST));
 
     // 使用者設定預算
     Integer budget = budgetSetting.getBudget();
@@ -70,7 +70,7 @@ public class GetBudgetFlow {
 
   @RequiredArgsConstructor
   public enum ErrorCodeEnum implements ErrorInfo {
-    CUSTOMER_NOT_EXIST("用戶不存在");
+    USER_NOT_EXIST("用戶不存在");
 
     private final String errorMessage;
 

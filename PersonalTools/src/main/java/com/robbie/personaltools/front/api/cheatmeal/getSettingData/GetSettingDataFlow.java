@@ -25,21 +25,21 @@ public class GetSettingDataFlow {
     String userId = this.tokenGetter.getTokenInfo().getUserId();
 
     // 取得使用者資料
-    Account member =
+    Account user =
         this.accountPersistence
             .findByUserId(userId)
-            .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
+            .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST));
 
     // 取得使用者設定的預算
     BudgetSetting budgetSetting =
         this.cheatMealBudgetPersistence
             .findByUserId(userId)
-            .orElseThrow(() -> new ValidException(ErrorCodeEnum.CUSTOMER_NOT_EXIST));
+            .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST));
 
     return Result.builder()
-        .customerName(member.getName())
-        .customerType(member.getUserType())
-        .email(member.getEmail())
+        .userName(user.getName())
+        .userType(user.getUserType())
+        .email(user.getEmail())
         .budget(budgetSetting.getBudget())
         .resetWeekday(budgetSetting.getResetWeekday())
         .build();
@@ -49,10 +49,10 @@ public class GetSettingDataFlow {
   @Builder
   public static class Result {
     /** 使用者名稱 */
-    private String customerName;
+    private String userName;
 
     /** 使用者 Type */
-    private String customerType;
+    private String userType;
 
     /** Google 電子郵件 */
     private String email;
@@ -66,7 +66,7 @@ public class GetSettingDataFlow {
 
   @RequiredArgsConstructor
   public enum ErrorCodeEnum implements ErrorInfo {
-    CUSTOMER_NOT_EXIST("用戶不存在");
+    USER_NOT_EXIST("用戶不存在");
 
     private final String errorMessage;
 
