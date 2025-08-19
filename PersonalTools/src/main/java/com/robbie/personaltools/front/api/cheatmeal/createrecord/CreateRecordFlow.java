@@ -9,7 +9,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.List;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CreateRecordFlow {
 
-  private final RecordPersistence recordPersistence;
-
   private final TokenGetter tokenGetter;
+  private final RecordPersistence recordPersistence;
 
   public void execute(Command command) throws ValidException {
     String userId = this.tokenGetter.getTokenInfo().getUserId();
@@ -30,24 +29,24 @@ public class CreateRecordFlow {
     boolean isNewUser = !this.recordPersistence.existsByUserId(userId);
 
     // 查詢該使用者這週是否已有記錄
-    List<Record> thisWeekRecords =
+    Optional<Record> thisWeekRecord =
         this.recordPersistence.findByUserIdAndDateBetweenStartAtAndEndAt(userId, LocalDate.now());
 
-    Long recordId = this.determineRecordByUserState(isNewUser, userId, thisWeekRecords, command);
+    Long recordId = this.determineRecordByUserState(isNewUser, userId, thisWeekRecord, command);
 
     RecordMeal recordMeal = this.createRecordMeal(command, recordId);
     this.recordPersistence.saveRecordMeal(recordMeal);
   }
 
   private Long determineRecordByUserState(
-      boolean isNewUser, String userId, List<Record> thisWeekRecords, Command command) {
+      boolean isNewUser, String userId, Optional<Record> thisWeekRecord, Command command) {
     if (isNewUser) {
       LocalDate startAt = LocalDate.now();
       LocalDate endAt =
           LocalDate.now()
               .with(TemporalAdjusters.nextOrSame(DayOfWeek.of(command.getResetWeekday())));
       return this.createRecord(command, userId, startAt, endAt);
-    } else if (thisWeekRecords.isEmpty()) {
+    } else if (thisWeekRecord.isEmpty()) {
       LocalDate startAt =
           LocalDate.now()
               .with(TemporalAdjusters.previousOrSame(DayOfWeek.of(command.getResetWeekday())))
@@ -57,7 +56,7 @@ public class CreateRecordFlow {
               .with(TemporalAdjusters.nextOrSame(DayOfWeek.of(command.getResetWeekday())));
       return this.createRecord(command, userId, startAt, endAt);
     } else {
-      return thisWeekRecords.get(0).getId();
+      return thisWeekRecord.get().getId();
     }
   }
 

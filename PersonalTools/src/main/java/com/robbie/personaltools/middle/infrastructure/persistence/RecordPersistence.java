@@ -6,6 +6,7 @@ import com.robbie.personaltools.infra.databases.entity.cheatmeal.Record;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.RecordMeal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ public class RecordPersistence {
     return this.recordDao.existsByUserId(userId);
   }
 
-  public List<Record> findByUserIdAndDateBetweenStartAtAndEndAt(String userId, LocalDate date) {
+  public Optional<Record> findByUserIdAndDateBetweenStartAtAndEndAt(String userId, LocalDate date) {
     return this.recordDao.findByUserIdAndDateBetweenStartAtAndEndAt(userId, date);
   }
 

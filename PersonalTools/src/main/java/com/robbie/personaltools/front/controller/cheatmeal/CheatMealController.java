@@ -13,6 +13,8 @@ import com.robbie.personaltools.front.api.cheatmeal.getcheatmealitem.GetCheatMea
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmealitem.model.GetCheatMealItemResponse;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
+import com.robbie.personaltools.front.api.cheatmeal.updatebudget.UpdateUserBudgetPresentation;
+import com.robbie.personaltools.front.api.cheatmeal.updatebudget.model.UpdateUserBudgetRequest;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.model.UpdateCheatMealItemRequest;
 import com.robbie.personaltools.front.api.cheatmeal.updateusername.UpdateUserNamePresentation;
@@ -45,6 +47,7 @@ public class CheatMealController {
   private final GetSettingDataPresentation getSettingDataPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
   private final UpdateUserNamePresentation updateUserNamePresentation;
+  private final UpdateUserBudgetPresentation updateUserBudgetPresentation;
   private final DeleteCheatMealItemPresentation deleteCheatMealItemPresentation;
 
   @Operation(summary = "新增作弊餐品項")
@@ -105,6 +108,13 @@ public class CheatMealController {
   @PutMapping("/updateUserName")
   public void updateUserName(@RequestBody @Valid UpdateUserNameRequest request) throws Exception {
     this.updateUserNamePresentation.execute(request);
+  }
+
+  @Operation(summary = "更新使用者預算")
+  @PutMapping("/updateUserBudget")
+  public void updateUserBudget(@RequestBody @Valid UpdateUserBudgetRequest request)
+      throws Exception {
+    this.updateUserBudgetPresentation.execute(request);
   }
 
   @Operation(summary = "刪除作弊餐品項")

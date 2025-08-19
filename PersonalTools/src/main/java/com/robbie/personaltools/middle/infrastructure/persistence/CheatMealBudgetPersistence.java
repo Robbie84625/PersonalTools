@@ -15,4 +15,8 @@ public class CheatMealBudgetPersistence {
   public Optional<BudgetSetting> findByUserId(String userId) {
     return this.budgetSettingsDao.findByUserId(userId);
   }
+
+  public void saveBudgetSetting(BudgetSetting budgetSetting) {
+    this.budgetSettingsDao.save(budgetSetting);
+  }
 }
