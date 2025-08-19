@@ -15,6 +15,8 @@ import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsP
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.model.UpdateCheatMealItemRequest;
+import com.robbie.personaltools.front.api.cheatmeal.updateusername.UpdateUserNamePresentation;
+import com.robbie.personaltools.front.api.cheatmeal.updateusername.model.UpdateUserNameRequest;
 import com.robbie.personaltools.infra.exception.ValidException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,6 +44,7 @@ public class CheatMealController {
   private final GetBudgetPresentation getBudgetPresentation;
   private final GetSettingDataPresentation getSettingDataPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
+  private final UpdateUserNamePresentation updateUserNamePresentation;
   private final DeleteCheatMealItemPresentation deleteCheatMealItemPresentation;
 
   @Operation(summary = "新增作弊餐品項")
@@ -96,6 +99,12 @@ public class CheatMealController {
   public void updateCheatMeal(
       @PathVariable Long id, @RequestBody UpdateCheatMealItemRequest request) throws Exception {
     this.updateCheatMealItemPresentation.execute(id, request);
+  }
+
+  @Operation(summary = "更新使用者名稱")
+  @PutMapping("/updateUserName")
+  public void updateUserName(@RequestBody @Valid UpdateUserNameRequest request) throws Exception {
+    this.updateUserNamePresentation.execute(request);
   }
 
   @Operation(summary = "刪除作弊餐品項")

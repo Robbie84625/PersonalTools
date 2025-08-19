@@ -14,4 +14,8 @@ public class AccountPersistence {
   public Optional<Account> findByUserId(String userId) {
     return this.accountDao.findById(userId);
   }
+
+  public void saveAccount(Account account) {
+    this.accountDao.save(account);
+  }
 }
