@@ -9,10 +9,9 @@ import com.robbie.personaltools.front.api.cheatmeal.getSettingData.GetSettingDat
 import com.robbie.personaltools.front.api.cheatmeal.getSettingData.model.GetSettingDataResponse;
 import com.robbie.personaltools.front.api.cheatmeal.getbudget.GetBudgetPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.getbudget.model.GetBudgetResponse;
-import com.robbie.personaltools.front.api.cheatmeal.getcheatmealitem.GetCheatMealItemPresentation;
-import com.robbie.personaltools.front.api.cheatmeal.getcheatmealitem.model.GetCheatMealItemResponse;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
+import com.robbie.personaltools.front.api.cheatmeal.updateResetWeekday.UpdateResetWeekdayPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatebudget.UpdateUserBudgetPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatebudget.model.UpdateUserBudgetRequest;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
@@ -42,12 +41,12 @@ public class CheatMealController {
   private final CreateCheatMealItemPresentation createCheatMealItemPresentation;
   private final CreateRecordPresentation createRecordPresentation;
   private final GetCheatMealsPresentation getCheatMealsPresentation;
-  private final GetCheatMealItemPresentation getCheatMealItemPresentation;
   private final GetBudgetPresentation getBudgetPresentation;
   private final GetSettingDataPresentation getSettingDataPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
   private final UpdateUserNamePresentation updateUserNamePresentation;
   private final UpdateUserBudgetPresentation updateUserBudgetPresentation;
+  private final UpdateResetWeekdayPresentation updateResetWeekdayPresentation;
   private final DeleteCheatMealItemPresentation deleteCheatMealItemPresentation;
 
   @Operation(summary = "新增作弊餐品項")
@@ -72,17 +71,6 @@ public class CheatMealController {
       @RequestParam(defaultValue = "20") Integer size)
       throws ValidException {
     return this.getCheatMealsPresentation.execute(keyword, category, page, size);
-  }
-
-  @Operation(summary = "取得作弊餐品項內容")
-  @GetMapping("/getCheatMealItem")
-  public GetCheatMealItemResponse getCheatMealItem(
-      @RequestParam(required = false) String cheatMealName,
-      @RequestParam(required = false) Integer cheatMealPoint,
-      @RequestParam(required = false) Integer currentRemainingBudget)
-      throws Exception {
-    return this.getCheatMealItemPresentation.execute(
-        cheatMealName, cheatMealPoint, currentRemainingBudget);
   }
 
   @Operation(summary = "取得預算")
