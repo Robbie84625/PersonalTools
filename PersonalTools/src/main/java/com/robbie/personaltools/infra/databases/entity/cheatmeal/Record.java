@@ -19,8 +19,8 @@ public class Record {
   private Long id;
 
   /** 客戶 ID */
-  @Column(name = "customer_id")
-  private String customerId;
+  @Column(name = "user_id")
+  private String userId;
 
   /** 作弊餐紀錄開始日期 */
   @Column(name = "start_at")
