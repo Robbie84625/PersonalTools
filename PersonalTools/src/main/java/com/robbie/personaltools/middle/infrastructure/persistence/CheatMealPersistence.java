@@ -18,30 +18,29 @@ public class CheatMealPersistence {
     this.mealDao.save(meal);
   }
 
-  public Optional<Meal> findByCustomerIdAndMealName(String customerId, String name) {
-    return this.mealDao.findByCustomerIdAndName(customerId, name);
+  public Optional<Meal> findByUserIdAndMealName(String userId, String name) {
+    return this.mealDao.findByUserIdAndName(userId, name);
   }
 
-  public Page<Meal> findMeals(
-      String customerId, String keyword, String category, Pageable pageable) {
+  public Page<Meal> findMeals(String userId, String keyword, String category, Pageable pageable) {
     // 沒有任何搜尋條件
     if (StringUtils.isBlank(keyword) && StringUtils.isBlank(category)) {
-      return this.mealDao.findAllByCustomerId(customerId, pageable);
+      return this.mealDao.findAllByUserId(userId, pageable);
     }
     // 只有關鍵字
     if (StringUtils.isNotBlank(keyword) && StringUtils.isBlank(category)) {
-      return this.mealDao.findByCustomerIdAndNameContaining(customerId, keyword, pageable);
+      return this.mealDao.findByUserIdAndNameContaining(userId, keyword, pageable);
     }
     // 只有分類
     if (StringUtils.isBlank(keyword) && StringUtils.isNotBlank(category)) {
-      return this.mealDao.findByCustomerIdAndCategory(customerId, category, pageable);
+      return this.mealDao.findByUserIdAndCategory(userId, category, pageable);
     }
     // 兩個條件都有
-    return this.mealDao.findByCustomerIdAndCategoryAndNameContaining(
-        customerId, category, keyword, pageable);
+    return this.mealDao.findByUserIdAndCategoryAndNameContaining(
+        userId, category, keyword, pageable);
   }
 
-  public int deleteByCustomerIdAndId(String customerId, Long cheatMealId) {
-    return this.mealDao.deleteByCustomerIdAndId(customerId, cheatMealId);
+  public int deleteByUserIdAndId(String userId, Long cheatMealId) {
+    return this.mealDao.deleteByUserIdAndId(userId, cheatMealId);
   }
 }

@@ -5,5 +5,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BudgetSettingsDao extends JpaRepository<BudgetSetting, Long> {
-  Optional<BudgetSetting> findByCustomerId(String customerId);
+  Optional<BudgetSetting> findByUserId(String userId);
 }

@@ -6,6 +6,7 @@ import com.robbie.personaltools.infra.databases.entity.cheatmeal.Record;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.RecordMeal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +16,12 @@ public class RecordPersistence {
   private final RecordDao recordDao;
   private final RecordMealDao recordMealDao;
 
-  public boolean existsByCustomerId(String customerId) {
-    return this.recordDao.existsByCustomerId(customerId);
+  public boolean existsByUserId(String userId) {
+    return this.recordDao.existsByUserId(userId);
   }
 
-  public List<Record> findByCustomerIdAndDateBetweenStartAtAndEndAt(
-      String customerId, LocalDate date) {
-    return this.recordDao.findByCustomerIdAndDateBetweenStartAtAndEndAt(customerId, date);
+  public Optional<Record> findByUserIdAndDateBetweenStartAtAndEndAt(String userId, LocalDate date) {
+    return this.recordDao.findByUserIdAndDateBetweenStartAtAndEndAt(userId, date);
   }
 
   public Record saveRecord(Record record) {

@@ -1,6 +1,6 @@
 package com.robbie.personaltools.site.exceptionhandler;
 
-import com.robbie.personaltools.constant.ErrorInfo;
+import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.model.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
