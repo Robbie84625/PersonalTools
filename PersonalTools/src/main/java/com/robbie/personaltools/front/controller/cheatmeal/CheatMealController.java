@@ -12,6 +12,7 @@ import com.robbie.personaltools.front.api.cheatmeal.getbudget.model.GetBudgetRes
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
 import com.robbie.personaltools.front.api.cheatmeal.updateResetWeekday.UpdateResetWeekdayPresentation;
+import com.robbie.personaltools.front.api.cheatmeal.updateResetWeekday.model.UpdateResetWeekdayRequest;
 import com.robbie.personaltools.front.api.cheatmeal.updatebudget.UpdateUserBudgetPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatebudget.model.UpdateUserBudgetRequest;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
@@ -103,6 +104,13 @@ public class CheatMealController {
   public void updateUserBudget(@RequestBody @Valid UpdateUserBudgetRequest request)
       throws Exception {
     this.updateUserBudgetPresentation.execute(request);
+  }
+
+  @Operation(summary = "更新預算重置日")
+  @PutMapping("/updateResetWeekday")
+  public void updateResetWeekday(@RequestBody @Valid UpdateResetWeekdayRequest request)
+      throws Exception {
+    this.updateResetWeekdayPresentation.execute(request);
   }
 
   @Operation(summary = "刪除作弊餐品項")
