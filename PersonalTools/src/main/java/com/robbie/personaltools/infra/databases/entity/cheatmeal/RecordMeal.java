@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Entity
-@Table(name = "record_meal", schema = "cheat_meal")
+@Table(name = "consumption_record", schema = "cheat_meal")
 @Data
 public class RecordMeal {
   /** id */
