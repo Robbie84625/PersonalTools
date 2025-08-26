@@ -1,6 +1,5 @@
 package com.robbie.personaltools.front.api.cheatmeal.updatebudget;
 
-import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
@@ -23,10 +22,6 @@ public class UpdateUserBudgetFlow {
 
   public void execute(Command command) throws ValidException {
     String userId = this.tokenGetter.getTokenInfo().getUserId();
-
-    if (!this.accountPersistence.existsByUserId(userId)) {
-      throw new ValidException(ErrorCodeEnum.USER_NOT_EXIST);
-    }
 
     LocalDateTime weekStart = LocalDate.now().with(DayOfWeek.MONDAY).atStartOfDay();
     LocalDateTime weekEnd = weekStart.plusDays(7);
@@ -57,22 +52,5 @@ public class UpdateUserBudgetFlow {
   public static class Command {
     /** 使用者設定的預算 */
     private Integer budget;
-  }
-
-  @RequiredArgsConstructor
-  public enum ErrorCodeEnum implements ErrorInfo {
-    USER_NOT_EXIST("用戶不存在");
-
-    private final String errorMessage;
-
-    @Override
-    public String getErrorCode() {
-      return this.name();
-    }
-
-    @Override
-    public String getErrorMessage() {
-      return this.errorMessage;
-    }
   }
 }

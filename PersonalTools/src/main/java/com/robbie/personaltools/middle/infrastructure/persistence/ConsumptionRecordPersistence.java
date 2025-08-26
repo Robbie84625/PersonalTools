@@ -17,4 +17,8 @@ public class ConsumptionRecordPersistence {
       String userId, LocalDateTime weekStart, LocalDateTime weekEnd) {
     return this.consumptionRecordDao.findByUserIdAndWeekRange(userId, weekStart, weekEnd);
   }
+
+  public void saveConsumptionRecord(ConsumptionRecord record) {
+    this.consumptionRecordDao.save(record);
+  }
 }
