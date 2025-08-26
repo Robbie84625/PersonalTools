@@ -10,17 +10,13 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Entity
-@Table(name = "record_meal", schema = "cheat_meal")
+@Table(name = "consumption_record", schema = "cheat_meal")
 @Data
-public class RecordMeal {
+public class ConsumptionRecord {
   /** id */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  /** record.id */
-  @Column(name = "record_id")
-  private Long recordId;
 
   /** 作弊餐名稱 */
   @Column(name = "meal_name")
@@ -33,4 +29,7 @@ public class RecordMeal {
   /** 消費日期 */
   @Column(name = "consumed_at")
   private LocalDateTime consumedAt;
+
+  @Column(name = "user_id")
+  private String userId;
 }

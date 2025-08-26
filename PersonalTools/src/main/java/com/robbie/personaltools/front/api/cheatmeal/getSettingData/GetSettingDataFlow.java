@@ -41,7 +41,7 @@ public class GetSettingDataFlow {
         .userType(user.getUserType())
         .email(user.getEmail())
         .budget(budgetSetting.getBudget())
-        .resetWeekday(budgetSetting.getResetWeekday())
+        .resetWeekday(7)
         .build();
   }
 
