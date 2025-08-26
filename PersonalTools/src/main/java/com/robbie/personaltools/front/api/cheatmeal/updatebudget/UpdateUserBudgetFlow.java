@@ -1,13 +1,12 @@
 package com.robbie.personaltools.front.api.cheatmeal.updatebudget;
 
-import com.robbie.personaltools.infra.constant.ErrorInfo;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
-import com.robbie.personaltools.middle.infrastructure.persistence.RecordPersistence;
-import jakarta.transaction.Transactional;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,29 +17,32 @@ import org.springframework.stereotype.Service;
 public class UpdateUserBudgetFlow {
   private final TokenGetter tokenGetter;
   private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
-  private final RecordPersistence recordPersistence;
 
-  @Transactional
   public void execute(Command command) throws ValidException {
     String userId = this.tokenGetter.getTokenInfo().getUserId();
+
+    LocalDateTime weekStart = LocalDate.now().with(DayOfWeek.MONDAY).atStartOfDay();
+    LocalDateTime weekEnd = weekStart.plusDays(7);
 
     // 取得使用者設定的預算
     BudgetSetting budgetSetting =
         this.cheatMealBudgetPersistence
-            .findByUserId(userId)
-            .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST));
-
-    budgetSetting.setBudget(command.getBudget());
+            .findByUserIdAndWeek(userId, weekStart, weekEnd)
+            .map(
+                existing -> {
+                  existing.setBudget(command.getBudget());
+                  return existing;
+                })
+            .orElseGet(
+                () -> {
+                  BudgetSetting newBudget = new BudgetSetting();
+                  newBudget.setUserId(userId);
+                  newBudget.setBudget(command.getBudget());
+                  newBudget.setCreatedAt(LocalDateTime.now());
+                  return newBudget;
+                });
 
     this.cheatMealBudgetPersistence.saveBudgetSetting(budgetSetting);
-
-    this.recordPersistence
-        .findByUserIdAndDateBetweenStartAtAndEndAt(userId, LocalDate.now())
-        .ifPresent(
-            record -> {
-              record.setBudget(command.getBudget());
-              this.recordPersistence.saveRecord(record);
-            });
   }
 
   @Builder
@@ -48,22 +50,5 @@ public class UpdateUserBudgetFlow {
   public static class Command {
     /** 使用者設定的預算 */
     private Integer budget;
-  }
-
-  @RequiredArgsConstructor
-  public enum ErrorCodeEnum implements ErrorInfo {
-    USER_NOT_EXIST("用戶不存在");
-
-    private final String errorMessage;
-
-    @Override
-    public String getErrorCode() {
-      return this.name();
-    }
-
-    @Override
-    public String getErrorMessage() {
-      return this.errorMessage;
-    }
   }
 }

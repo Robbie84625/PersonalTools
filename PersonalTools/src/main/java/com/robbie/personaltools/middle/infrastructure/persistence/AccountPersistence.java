@@ -15,6 +15,10 @@ public class AccountPersistence {
     return this.accountDao.findById(userId);
   }
 
+  public Boolean existsByUserId(String userId) {
+    return this.accountDao.existsById(userId);
+  }
+
   public void saveAccount(Account account) {
     this.accountDao.save(account);
   }
