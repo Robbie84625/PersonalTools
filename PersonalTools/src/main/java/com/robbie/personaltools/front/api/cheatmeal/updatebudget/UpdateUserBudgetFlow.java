@@ -3,7 +3,6 @@ package com.robbie.personaltools.front.api.cheatmeal.updatebudget;
 import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
-import com.robbie.personaltools.middle.infrastructure.persistence.AccountPersistence;
 import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateUserBudgetFlow {
   private final TokenGetter tokenGetter;
-  private final AccountPersistence accountPersistence;
   private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
 
   public void execute(Command command) throws ValidException {
