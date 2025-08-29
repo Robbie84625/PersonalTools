@@ -1,12 +1,10 @@
 package com.robbie.personaltools.front.api.cheatmeal.getSettingData;
 
 import com.robbie.personaltools.infra.constant.ErrorInfo;
-import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
 import com.robbie.personaltools.infra.databases.entity.user.Account;
 import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.AccountPersistence;
-import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class GetSettingDataFlow {
 
   private final AccountPersistence accountPersistence;
-  private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
 
   private final TokenGetter tokenGetter;
 
@@ -30,17 +27,11 @@ public class GetSettingDataFlow {
             .findByUserId(userId)
             .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST));
 
-    // 取得使用者設定的預算
-    BudgetSetting budgetSetting =
-        this.cheatMealBudgetPersistence
-            .findByUserId(userId)
-            .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST));
-
     return Result.builder()
         .userName(user.getName())
         .userType(user.getUserType())
         .email(user.getEmail())
-        .budget(budgetSetting.getBudget())
+        .budget(user.getBudget())
         .resetWeekday(7)
         .build();
   }

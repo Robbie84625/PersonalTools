@@ -10,22 +10,27 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Entity
-@Table(name = "budget_setting", schema = "cheat_meal")
+@Table(name = "record_meal", schema = "cheat_meal")
 @Data
-public class BudgetSetting {
+public class RecordMeal {
   /** id */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /** 會員編號 */
-  @Column(name = "user_id")
-  private String userId;
+  /** 餐點名稱 */
+  @Column(name = "meal_name")
+  private String mealName;
 
-  /** 使用者作弊餐總額度 */
-  private Integer budget;
+  /** 餐點點數 */
+  @Column(name = "meal_point")
+  private Integer mealPoint;
 
-  /** 重置週期日 (1=週一, 2=週二, ..., 7=週日) */
-  @Column(name = "created_at")
-  private LocalDateTime createdAt;
+  /** consumption_record 資料表 id */
+  @Column(name = "record_id")
+  private Long recordId;
+
+  /** 建立時間 */
+  @Column(name = "consumed_at")
+  private LocalDateTime consumedAt;
 }
