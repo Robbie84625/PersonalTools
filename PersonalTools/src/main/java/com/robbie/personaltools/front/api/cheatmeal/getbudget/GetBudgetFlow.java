@@ -1,19 +1,18 @@
 package com.robbie.personaltools.front.api.cheatmeal.getbudget;
 
 import com.robbie.personaltools.infra.constant.ErrorInfo;
-import com.robbie.personaltools.infra.databases.entity.cheatmeal.BudgetSetting;
-import com.robbie.personaltools.infra.databases.entity.cheatmeal.ConsumptionRecord;
+import com.robbie.personaltools.infra.databases.entity.cheatmeal.RecordMeal;
 import com.robbie.personaltools.infra.dataprovider.accesstoken.TokenGetter;
 import com.robbie.personaltools.infra.exception.ValidException;
 import com.robbie.personaltools.middle.infrastructure.persistence.AccountPersistence;
-import com.robbie.personaltools.middle.infrastructure.persistence.CheatMealBudgetPersistence;
 import com.robbie.personaltools.middle.infrastructure.persistence.ConsumptionRecordPersistence;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -21,32 +20,35 @@ import org.springframework.stereotype.Service;
 public class GetBudgetFlow {
   private final TokenGetter tokenGetter;
   private final AccountPersistence accountPersistence;
-  private final CheatMealBudgetPersistence cheatMealBudgetPersistence;
   private final ConsumptionRecordPersistence consumptionRecordPersistence;
 
   public Result execute() throws ValidException {
     String userId = this.tokenGetter.getTokenInfo().getUserId();
 
-    // 驗證使用者
-    if (!this.accountPersistence.existsByUserId(userId)) {
-      throw new ValidException(ErrorCodeEnum.USER_NOT_EXIST);
-    }
-    LocalDateTime weekStart = LocalDate.now().with(DayOfWeek.MONDAY).atStartOfDay();
-    LocalDateTime weekEnd = weekStart.plusDays(7);
+    LocalDate weekStart = LocalDate.now().with(DayOfWeek.MONDAY);
+
     // 取得使用者設定的預算
     Integer budget =
-        this.cheatMealBudgetPersistence.findByUserIdAndCreatedAtBefore(userId, weekEnd).stream()
-            .findFirst()
-            .map(BudgetSetting::getBudget)
-            .orElse(0);
+        this.accountPersistence
+            .findByUserId(userId)
+            .orElseThrow(() -> new ValidException(ErrorCodeEnum.USER_NOT_EXIST))
+            .getBudget();
+
+    Pageable pageable = PageRequest.of(0, 1);
 
     // 去紀錄取得餐點消耗額度並加總
     Integer totalConsumedPoint =
         this.consumptionRecordPersistence
-            .findByUserIdAndWeekRange(userId, weekStart, weekEnd)
+            .findByUserIdOrderByCreatedAtDesc(userId, pageable)
             .stream()
-            .mapToInt(ConsumptionRecord::getMealPoint)
-            .sum();
+            .filter(record -> record.getWeekStart().isEqual(weekStart))
+            .findFirst()
+            .map(
+                record ->
+                    this.consumptionRecordPersistence.findByRecordId(record.getId()).stream()
+                        .mapToInt(RecordMeal::getMealPoint)
+                        .sum())
+            .orElse(0);
 
     return Result.builder()
         .budget(budget)
