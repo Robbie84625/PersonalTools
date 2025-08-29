@@ -41,4 +41,7 @@ public class Account {
   /** 更新時間 */
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
+
+  @Column(name = "budget")
+  private Integer budget;
 }
