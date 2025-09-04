@@ -53,7 +53,7 @@ public class GetCheatMealsFlow {
     /** 分頁頁碼 - 從0開始計算 */
     private Integer page;
 
-    /** 每頁筆數 - 單頁顯示的餐點數量 default 10 */
+    /** 每頁筆數 - 單頁顯示的餐點數量 default 20 */
     private Integer size;
   }
 

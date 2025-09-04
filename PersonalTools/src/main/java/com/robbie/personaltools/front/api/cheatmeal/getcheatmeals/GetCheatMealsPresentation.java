@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Service("GetCheatMealsPresentation")
+@Service("getCheatMealsPresentation")
 public class GetCheatMealsPresentation {
   private final GetCheatMealsFlow getCheatMealsFlow;
 

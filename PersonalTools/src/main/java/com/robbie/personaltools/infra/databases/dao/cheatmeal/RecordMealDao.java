@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecordMealDao extends JpaRepository<RecordMeal, Long> {
   List<RecordMeal> findByRecordId(Long recordId);
+
+  List<RecordMeal> findByRecordIdIn(List<Long> recordIds);
 }

@@ -31,6 +31,10 @@ public class ConsumptionRecordPersistence {
     return this.recordMealDao.findByRecordId(recordId);
   }
 
+  public List<RecordMeal> findByRecordIdIn(List<Long> recordIds) {
+    return this.recordMealDao.findByRecordIdIn(recordIds);
+  }
+
   public void saveRecordMeal(RecordMeal recordMeal) {
     this.recordMealDao.save(recordMeal);
   }

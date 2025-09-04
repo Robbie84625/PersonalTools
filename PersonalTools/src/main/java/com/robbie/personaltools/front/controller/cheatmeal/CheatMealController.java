@@ -11,6 +11,8 @@ import com.robbie.personaltools.front.api.cheatmeal.getbudget.GetBudgetPresentat
 import com.robbie.personaltools.front.api.cheatmeal.getbudget.model.GetBudgetResponse;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.GetCheatMealsPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
+import com.robbie.personaltools.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordPresentation;
+import com.robbie.personaltools.front.api.cheatmeal.getconsumptionrecord.model.GetConsumptionRecordResponse;
 import com.robbie.personaltools.front.api.cheatmeal.updatebudget.UpdateUserBudgetPresentation;
 import com.robbie.personaltools.front.api.cheatmeal.updatebudget.model.UpdateUserBudgetRequest;
 import com.robbie.personaltools.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemPresentation;
@@ -41,6 +43,7 @@ public class CheatMealController {
   private final CreateRecordPresentation createRecordPresentation;
   private final GetCheatMealsPresentation getCheatMealsPresentation;
   private final GetBudgetPresentation getBudgetPresentation;
+  private final GetConsumptionRecordPresentation getConsumptionRecordPresentation;
   private final GetSettingDataPresentation getSettingDataPresentation;
   private final UpdateCheatMealItemPresentation updateCheatMealItemPresentation;
   private final UpdateUserNamePresentation updateUserNamePresentation;
@@ -75,6 +78,13 @@ public class CheatMealController {
   @GetMapping("/getBudget")
   public GetBudgetResponse getBudget() throws Exception {
     return this.getBudgetPresentation.execute();
+  }
+
+  public GetConsumptionRecordResponse getConsumptionRecord(
+      @RequestParam(defaultValue = "0") Integer page,
+      @RequestParam(defaultValue = "20") Integer size)
+      throws Exception {
+    return this.getConsumptionRecordPresentation.execute(page, size);
   }
 
   @Operation(summary = "取得設定頁面")
