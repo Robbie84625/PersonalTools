@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.deletecheatmealitem;
+package com.robbie.front.api.cheatmeal.deletecheatmealitem;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

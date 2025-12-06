@@ -1,11 +1,11 @@
-package com.robbie.backend.front.api.cheatmeal.getconsumptionrecord;
+package com.robbie.front.api.cheatmeal.getconsumptionrecord;
 
-import com.robbie.backend.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordFlow.Result.CheatMeal;
-import com.robbie.backend.infra.databases.entity.cheatmeal.ConsumptionRecord;
-import com.robbie.backend.infra.databases.entity.cheatmeal.RecordMeal;
-import com.robbie.backend.infra.dataprovider.accesstoken.TokenGetter;
-import com.robbie.backend.infra.exception.ValidException;
-import com.robbie.backend.middle.infrastructure.persistence.ConsumptionRecordPersistence;
+import com.robbie.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordFlow.Result.CheatMeal;
+import com.robbie.infra.databases.entity.cheatmeal.ConsumptionRecord;
+import com.robbie.infra.databases.entity.cheatmeal.RecordMeal;
+import com.robbie.infra.dataprovider.accesstoken.TokenGetter;
+import com.robbie.infra.exception.ValidException;
+import com.robbie.middle.infrastructure.persistence.ConsumptionRecordPersistence;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;

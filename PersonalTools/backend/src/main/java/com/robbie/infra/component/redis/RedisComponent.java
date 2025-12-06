@@ -1,4 +1,4 @@
-package com.robbie.backend.infra.component.redis;
+package com.robbie.infra.component.redis;
 
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

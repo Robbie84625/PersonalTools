@@ -1,4 +1,4 @@
-package com.robbie.backend.infra.constant;
+package com.robbie.infra.constant;
 
 import lombok.RequiredArgsConstructor;
 

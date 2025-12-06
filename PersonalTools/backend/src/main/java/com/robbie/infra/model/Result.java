@@ -1,4 +1,4 @@
-package com.robbie.backend.infra.model;
+package com.robbie.infra.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

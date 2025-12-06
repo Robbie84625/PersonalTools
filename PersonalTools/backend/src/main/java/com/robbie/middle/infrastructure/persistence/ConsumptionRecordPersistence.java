@@ -1,9 +1,9 @@
-package com.robbie.backend.middle.infrastructure.persistence;
+package com.robbie.middle.infrastructure.persistence;
 
-import com.robbie.backend.infra.databases.dao.cheatmeal.ConsumptionRecordDao;
-import com.robbie.backend.infra.databases.dao.cheatmeal.RecordMealDao;
-import com.robbie.backend.infra.databases.entity.cheatmeal.ConsumptionRecord;
-import com.robbie.backend.infra.databases.entity.cheatmeal.RecordMeal;
+import com.robbie.infra.databases.dao.cheatmeal.ConsumptionRecordDao;
+import com.robbie.infra.databases.dao.cheatmeal.RecordMealDao;
+import com.robbie.infra.databases.entity.cheatmeal.ConsumptionRecord;
+import com.robbie.infra.databases.entity.cheatmeal.RecordMeal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

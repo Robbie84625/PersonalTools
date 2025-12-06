@@ -1,4 +1,4 @@
-package com.robbie.backend.infra.databases.entity.cheatmeal;
+package com.robbie.infra.databases.entity.cheatmeal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

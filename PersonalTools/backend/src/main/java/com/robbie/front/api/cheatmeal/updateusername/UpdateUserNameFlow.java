@@ -1,10 +1,10 @@
-package com.robbie.backend.front.api.cheatmeal.updateusername;
+package com.robbie.front.api.cheatmeal.updateusername;
 
-import com.robbie.backend.infra.constant.ErrorInfo;
-import com.robbie.backend.infra.databases.entity.user.Account;
-import com.robbie.backend.infra.dataprovider.accesstoken.TokenGetter;
-import com.robbie.backend.infra.exception.ValidException;
-import com.robbie.backend.middle.infrastructure.persistence.AccountPersistence;
+import com.robbie.infra.constant.ErrorInfo;
+import com.robbie.infra.databases.entity.user.Account;
+import com.robbie.infra.dataprovider.accesstoken.TokenGetter;
+import com.robbie.infra.exception.ValidException;
+import com.robbie.middle.infrastructure.persistence.AccountPersistence;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;

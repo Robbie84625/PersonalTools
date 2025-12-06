@@ -1,7 +1,7 @@
-package com.robbie.backend.site.exceptionhandler;
+package com.robbie.site.exceptionhandler;
 
-import com.robbie.backend.infra.constant.ErrorInfo;
-import com.robbie.backend.infra.model.Result;
+import com.robbie.infra.constant.ErrorInfo;
+import com.robbie.infra.model.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

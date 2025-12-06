@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.updateusername.model;
+package com.robbie.front.api.cheatmeal.updateusername.model;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

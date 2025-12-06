@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.createcheatmeal.model;
+package com.robbie.front.api.cheatmeal.createcheatmeal.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
