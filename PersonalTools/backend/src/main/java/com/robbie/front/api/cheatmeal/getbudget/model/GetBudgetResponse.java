@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.getbudget.model;
+package com.robbie.front.api.cheatmeal.getbudget.model;
 
 import lombok.Builder;
 import lombok.Data;

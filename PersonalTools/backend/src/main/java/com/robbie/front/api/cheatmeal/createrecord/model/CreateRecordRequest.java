@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.createrecord.model;
+package com.robbie.front.api.cheatmeal.createrecord.model;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

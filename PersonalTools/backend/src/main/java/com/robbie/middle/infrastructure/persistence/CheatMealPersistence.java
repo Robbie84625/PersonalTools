@@ -1,7 +1,7 @@
-package com.robbie.backend.middle.infrastructure.persistence;
+package com.robbie.middle.infrastructure.persistence;
 
-import com.robbie.backend.infra.databases.dao.cheatmeal.MealDao;
-import com.robbie.backend.infra.databases.entity.cheatmeal.Meal;
+import com.robbie.infra.databases.dao.cheatmeal.MealDao;
+import com.robbie.infra.databases.entity.cheatmeal.Meal;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

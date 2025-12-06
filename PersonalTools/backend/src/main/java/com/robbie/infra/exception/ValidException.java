@@ -1,7 +1,7 @@
-package com.robbie.backend.infra.exception;
+package com.robbie.infra.exception;
 
-import com.robbie.backend.infra.constant.ErrorInfo;
-import com.robbie.backend.infra.model.ResultError;
+import com.robbie.infra.constant.ErrorInfo;
+import com.robbie.infra.model.ResultError;
 import java.text.MessageFormat;
 import java.util.Optional;
 import lombok.Getter;

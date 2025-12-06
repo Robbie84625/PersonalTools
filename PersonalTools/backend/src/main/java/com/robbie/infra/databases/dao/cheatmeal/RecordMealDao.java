@@ -1,6 +1,6 @@
-package com.robbie.backend.infra.databases.dao.cheatmeal;
+package com.robbie.infra.databases.dao.cheatmeal;
 
-import com.robbie.backend.infra.databases.entity.cheatmeal.RecordMeal;
+import com.robbie.infra.databases.entity.cheatmeal.RecordMeal;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 

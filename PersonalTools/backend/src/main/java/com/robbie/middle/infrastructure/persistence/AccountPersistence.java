@@ -1,7 +1,7 @@
-package com.robbie.backend.middle.infrastructure.persistence;
+package com.robbie.middle.infrastructure.persistence;
 
-import com.robbie.backend.infra.databases.dao.user.AccountDao;
-import com.robbie.backend.infra.databases.entity.user.Account;
+import com.robbie.infra.databases.dao.user.AccountDao;
+import com.robbie.infra.databases.entity.user.Account;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

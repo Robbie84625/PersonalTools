@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.updatebudget.model;
+package com.robbie.front.api.cheatmeal.updatebudget.model;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

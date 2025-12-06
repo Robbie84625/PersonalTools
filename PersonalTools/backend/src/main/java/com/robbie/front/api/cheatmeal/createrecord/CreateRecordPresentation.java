@@ -1,8 +1,8 @@
-package com.robbie.backend.front.api.cheatmeal.createrecord;
+package com.robbie.front.api.cheatmeal.createrecord;
 
-import com.robbie.backend.front.api.cheatmeal.createrecord.CreateRecordFlow.Command;
-import com.robbie.backend.front.api.cheatmeal.createrecord.model.CreateRecordRequest;
-import com.robbie.backend.infra.exception.ValidException;
+import com.robbie.front.api.cheatmeal.createrecord.CreateRecordFlow.Command;
+import com.robbie.front.api.cheatmeal.createrecord.model.CreateRecordRequest;
+import com.robbie.infra.exception.ValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

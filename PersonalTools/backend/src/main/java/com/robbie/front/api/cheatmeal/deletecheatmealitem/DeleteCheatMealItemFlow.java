@@ -1,9 +1,9 @@
-package com.robbie.backend.front.api.cheatmeal.deletecheatmealitem;
+package com.robbie.front.api.cheatmeal.deletecheatmealitem;
 
-import com.robbie.backend.infra.constant.ErrorInfo;
-import com.robbie.backend.infra.dataprovider.accesstoken.TokenGetter;
-import com.robbie.backend.infra.exception.ValidException;
-import com.robbie.backend.middle.infrastructure.persistence.CheatMealPersistence;
+import com.robbie.infra.constant.ErrorInfo;
+import com.robbie.infra.dataprovider.accesstoken.TokenGetter;
+import com.robbie.infra.exception.ValidException;
+import com.robbie.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

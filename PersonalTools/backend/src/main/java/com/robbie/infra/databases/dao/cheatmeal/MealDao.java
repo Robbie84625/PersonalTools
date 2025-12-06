@@ -1,6 +1,6 @@
-package com.robbie.backend.infra.databases.dao.cheatmeal;
+package com.robbie.infra.databases.dao.cheatmeal;
 
-import com.robbie.backend.infra.databases.entity.cheatmeal.Meal;
+import com.robbie.infra.databases.entity.cheatmeal.Meal;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
