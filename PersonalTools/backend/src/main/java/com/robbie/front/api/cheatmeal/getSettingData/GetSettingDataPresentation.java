@@ -1,8 +1,8 @@
-package com.robbie.backend.front.api.cheatmeal.getSettingData;
+package com.robbie.front.api.cheatmeal.getSettingData;
 
-import com.robbie.backend.front.api.cheatmeal.getSettingData.GetSettingDataFlow.Result;
-import com.robbie.backend.front.api.cheatmeal.getSettingData.model.GetSettingDataResponse;
-import com.robbie.backend.infra.exception.ValidException;
+import com.robbie.front.api.cheatmeal.getSettingData.GetSettingDataFlow.Result;
+import com.robbie.front.api.cheatmeal.getSettingData.model.GetSettingDataResponse;
+import com.robbie.infra.exception.ValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

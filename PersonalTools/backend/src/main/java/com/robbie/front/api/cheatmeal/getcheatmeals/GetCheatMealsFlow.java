@@ -1,9 +1,9 @@
-package com.robbie.backend.front.api.cheatmeal.getcheatmeals;
+package com.robbie.front.api.cheatmeal.getcheatmeals;
 
-import com.robbie.backend.infra.databases.entity.cheatmeal.Meal;
-import com.robbie.backend.infra.dataprovider.accesstoken.TokenGetter;
-import com.robbie.backend.infra.exception.ValidException;
-import com.robbie.backend.middle.infrastructure.persistence.CheatMealPersistence;
+import com.robbie.infra.databases.entity.cheatmeal.Meal;
+import com.robbie.infra.dataprovider.accesstoken.TokenGetter;
+import com.robbie.infra.exception.ValidException;
+import com.robbie.middle.infrastructure.persistence.CheatMealPersistence;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;

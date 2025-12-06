@@ -1,4 +1,4 @@
-package com.robbie.backend.infra.dataprovider.accesstoken.model;
+package com.robbie.infra.dataprovider.accesstoken.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serial;

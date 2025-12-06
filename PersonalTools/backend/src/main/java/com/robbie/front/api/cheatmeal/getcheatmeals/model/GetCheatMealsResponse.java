@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.getcheatmeals.model;
+package com.robbie.front.api.cheatmeal.getcheatmeals.model;
 
 import java.util.List;
 import lombok.Builder;

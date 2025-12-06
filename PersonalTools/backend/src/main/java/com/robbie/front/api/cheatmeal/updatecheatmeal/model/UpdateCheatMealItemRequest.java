@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.updatecheatmeal.model;
+package com.robbie.front.api.cheatmeal.updatecheatmeal.model;
 
 import lombok.Builder;
 import lombok.Data;

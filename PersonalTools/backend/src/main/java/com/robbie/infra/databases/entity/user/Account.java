@@ -1,4 +1,4 @@
-package com.robbie.backend.infra.databases.entity.user;
+package com.robbie.infra.databases.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

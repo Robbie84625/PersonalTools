@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.getconsumptionrecord.model;
+package com.robbie.front.api.cheatmeal.getconsumptionrecord.model;
 
 import java.time.LocalDate;
 import java.util.List;

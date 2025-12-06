@@ -1,8 +1,8 @@
-package com.robbie.backend.front.api.cheatmeal.updatecheatmeal;
+package com.robbie.front.api.cheatmeal.updatecheatmeal;
 
-import com.robbie.backend.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemFlow.Command;
-import com.robbie.backend.front.api.cheatmeal.updatecheatmeal.model.UpdateCheatMealItemRequest;
-import com.robbie.backend.infra.exception.ValidException;
+import com.robbie.front.api.cheatmeal.updatecheatmeal.UpdateCheatMealItemFlow.Command;
+import com.robbie.front.api.cheatmeal.updatecheatmeal.model.UpdateCheatMealItemRequest;
+import com.robbie.infra.exception.ValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

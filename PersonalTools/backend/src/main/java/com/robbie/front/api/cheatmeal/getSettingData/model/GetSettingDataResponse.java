@@ -1,4 +1,4 @@
-package com.robbie.backend.front.api.cheatmeal.getSettingData.model;
+package com.robbie.front.api.cheatmeal.getSettingData.model;
 
 import lombok.Builder;
 import lombok.Data;

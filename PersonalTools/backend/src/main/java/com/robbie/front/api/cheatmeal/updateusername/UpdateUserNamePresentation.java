@@ -1,8 +1,8 @@
-package com.robbie.backend.front.api.cheatmeal.updateusername;
+package com.robbie.front.api.cheatmeal.updateusername;
 
-import com.robbie.backend.front.api.cheatmeal.updateusername.UpdateUserNameFlow.Command;
-import com.robbie.backend.front.api.cheatmeal.updateusername.model.UpdateUserNameRequest;
-import com.robbie.backend.infra.exception.ValidException;
+import com.robbie.front.api.cheatmeal.updateusername.UpdateUserNameFlow.Command;
+import com.robbie.front.api.cheatmeal.updateusername.model.UpdateUserNameRequest;
+import com.robbie.infra.exception.ValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

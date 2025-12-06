@@ -1,9 +1,9 @@
-package com.robbie.backend.front.api.cheatmeal.getcheatmeals;
+package com.robbie.front.api.cheatmeal.getcheatmeals;
 
-import com.robbie.backend.front.api.cheatmeal.getcheatmeals.GetCheatMealsFlow.Command;
-import com.robbie.backend.front.api.cheatmeal.getcheatmeals.GetCheatMealsFlow.Result;
-import com.robbie.backend.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
-import com.robbie.backend.infra.exception.ValidException;
+import com.robbie.front.api.cheatmeal.getcheatmeals.GetCheatMealsFlow.Command;
+import com.robbie.front.api.cheatmeal.getcheatmeals.GetCheatMealsFlow.Result;
+import com.robbie.front.api.cheatmeal.getcheatmeals.model.GetCheatMealsResponse;
+import com.robbie.infra.exception.ValidException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

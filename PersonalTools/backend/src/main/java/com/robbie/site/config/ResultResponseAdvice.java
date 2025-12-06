@@ -1,6 +1,6 @@
-package com.robbie.backend.site.config;
+package com.robbie.site.config;
 
-import com.robbie.backend.infra.model.Result;
+import com.robbie.infra.model.Result;
 import java.util.Collections;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

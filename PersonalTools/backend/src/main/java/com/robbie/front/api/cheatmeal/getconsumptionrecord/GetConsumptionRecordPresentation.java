@@ -1,9 +1,9 @@
-package com.robbie.backend.front.api.cheatmeal.getconsumptionrecord;
+package com.robbie.front.api.cheatmeal.getconsumptionrecord;
 
-import com.robbie.backend.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordFlow.Command;
-import com.robbie.backend.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordFlow.Result;
-import com.robbie.backend.front.api.cheatmeal.getconsumptionrecord.model.GetConsumptionRecordResponse;
-import com.robbie.backend.infra.exception.ValidException;
+import com.robbie.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordFlow.Command;
+import com.robbie.front.api.cheatmeal.getconsumptionrecord.GetConsumptionRecordFlow.Result;
+import com.robbie.front.api.cheatmeal.getconsumptionrecord.model.GetConsumptionRecordResponse;
+import com.robbie.infra.exception.ValidException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
